@@ -17,7 +17,3 @@
 
 ## Tweak GC to run more often
 -env ERL_FULLSWEEP_AFTER 10
-
-## Start ssl and inets
-## -s ssl start
-## -s inets start
