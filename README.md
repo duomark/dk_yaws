@@ -10,8 +10,8 @@ Running dk_yaws standalone
 
 Download and install the source code, then perform the following at the command line:
 
-  # make realclean all rel
-  # rel/dk_yaws/bin/dk_yaws console
+  1. make realclean all rel
+  1. rel/dk_yaws/bin/dk_yaws console
 
 You will now have a webserver running and listening on the default port 8888.
 
