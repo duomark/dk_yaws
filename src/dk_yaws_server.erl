@@ -14,9 +14,27 @@
 
 -export([start_link/0, run/0]).
 
+%%%------------------------------------------------------------------------------
+%% @doc
+%%   Spawn a new process to start yaws via run/0. To properly configure
+%%%------------------------------------------------------------------------------
 start_link() ->
     {ok, proc_lib:spawn_link(?MODULE, run, [])}.
 
+%%%------------------------------------------------------------------------------
+%% @doc
+%%   Use application environment parameters to determine the port for yaws
+%%   to listen on and the root of the document hierarchy on disk from which
+%%   yaws will serve data files. If no values are accessible, the code is
+%%   hardwired to use port 8888 and a docroot of '/var/yaws/www'.
+%%
+%%   A call to yaws_api:embedded_start_conf/4 is used to construct the child
+%%   specs needed to allow dk_yaws_sup to start_child processes for a
+%%   functioning embedded yaws installation.
+%%
+%%   The run/0 function ends after successfully launching new yaws child
+%%   processes, relying on dk_yaws_sup to keep them running.
+%%%------------------------------------------------------------------------------
 run() ->
     Id = "dk_yaws",
     Docroot = get_app_env(docroot, "/var/yaws/www"),

@@ -3,7 +3,7 @@
 %%% @author Jay Nelson <jay@duomark.com>
 %%% @doc
 %%%   The dk_yaws_sup supervisor serves as the root of the yaws hierarchy,
-%%%   allowing a single supervisor to use as an included application.
+%%%   defining a single supervisor to use as an included application.
 %%% @since v0.0.1
 %%% @end
 %%%------------------------------------------------------------------------------
