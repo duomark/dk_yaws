@@ -14,9 +14,16 @@
 
 -export([start_link/0, run/0]).
 
--define(APP_PREFIX,        dk_yaws).
+-define(APP_ID,            "dk_yaws").
+-define(APP_PARAM_IP,      dk_yaws_ip).
 -define(APP_PARAM_PORT,    dk_yaws_port).
 -define(APP_PARAM_DOCROOT, dk_yaws_docroot).
+
+-define(DEFAULT_IP,       "0.0.0.0").
+-define(DEFAULT_IP_TUPLE, {0,0,0,0}).
+-define(DEFAULT_PORT,     8888).
+-define(DEFAULT_DOCROOT,  "/var/yaws/www").
+
 
 %%%------------------------------------------------------------------------------
 %% @doc
@@ -40,21 +47,24 @@ start_link() ->
 %%   processes, relying on dk_yaws_sup to keep them running.
 %%%------------------------------------------------------------------------------
 run() ->
-    Id = atom_to_list(?APP_PREFIX),
-    Docroot = get_app_env(?APP_PARAM_DOCROOT, "/var/yaws/www"),
-    GconfList = [{id, Id}],
-    SconfList =
-        [
-         %% HTTP listener...
-         {?APP_PARAM_PORT, 8888},
-         {listen, {0,0,0,0}},
-         {?APP_PARAM_DOCROOT, Docroot}
-        ],
+    Docroot = get_app_env(?APP_PARAM_DOCROOT, ?DEFAULT_DOCROOT),
+    GconfList = [{id, ?APP_ID}],
+    SconfList = get_ip_and_port() ++ [{docroot, Docroot}],
     {ok, SCList, GC, ChildSpecs} =
-        yaws_api:embedded_start_conf(Docroot, SconfList, GconfList, Id),
+        yaws_api:embedded_start_conf(Docroot, SconfList, GconfList, ?APP_ID),
     [supervisor:start_child(dk_yaws_sup, Ch) || Ch <- ChildSpecs],
     yaws_api:setconf(GC, SCList),
     {ok, self()}.
+
+get_ip_and_port() ->
+    Ip = get_app_env(?APP_PARAM_IP, ?DEFAULT_IP),
+    IpParts = string:tokens(Ip, "."),
+    IpTuple = case length(IpParts) of
+                  4 -> list_to_tuple([list_to_integer(N) || N <- IpParts]);
+                  _Improper -> ?DEFAULT_IP_TUPLE
+              end,
+    Port = get_app_env(?APP_PARAM_PORT, ?DEFAULT_PORT),
+    [{listen, IpTuple}, {port, Port}].
 
 
 %%%------------------------------------------------------------------------------
