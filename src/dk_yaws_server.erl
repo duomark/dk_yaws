@@ -14,6 +14,10 @@
 
 -export([start_link/0, run/0]).
 
+-define(APP_PREFIX,        dk_yaws).
+-define(APP_PARAM_PORT,    dk_yaws_port).
+-define(APP_PARAM_DOCROOT, dk_yaws_docroot).
+
 %%%------------------------------------------------------------------------------
 %% @doc
 %%   Spawn a new process to start yaws via run/0. To properly configure
@@ -36,15 +40,15 @@ start_link() ->
 %%   processes, relying on dk_yaws_sup to keep them running.
 %%%------------------------------------------------------------------------------
 run() ->
-    Id = "dk_yaws",
-    Docroot = get_app_env(docroot, "/var/yaws/www"),
+    Id = atom_to_list(?APP_PREFIX),
+    Docroot = get_app_env(?APP_PARAM_DOCROOT, "/var/yaws/www"),
     GconfList = [{id, Id}],
     SconfList =
         [
          %% HTTP listener...
-         {port, 8888},
+         {?APP_PARAM_PORT, 8888},
          {listen, {0,0,0,0}},
-         {docroot, Docroot}
+         {?APP_PARAM_DOCROOT, Docroot}
         ],
     {ok, SCList, GC, ChildSpecs} =
         yaws_api:embedded_start_conf(Docroot, SconfList, GconfList, Id),
