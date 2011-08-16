@@ -22,9 +22,9 @@ There are just a few steps to embed dk_yaws in another application. To understan
 
 There are two kinds of OTP applications: the primary application and included applications. There can only be one primary application. It has an application callback module (traditionally xxx_app.erl), that is invoked by the application controller when the node is booted. It should do no special customizations, and should invoke a single root supervisor to start all subsidiary applications and components.
 
-An included application is one which can exist as a primary application, but is instead made a subordinate component of the primary application. The primary application invokes the root supervisor of an included application within any of its own supervisors (but only once!) so that all dependencies from the root supervisor down become a subcomponent of the primary application.
+An included application is one which can exist as a primary application, but is instead made a subordinate component of the primary application. The primary application invokes the root supervisor of an included application within any of its own supervisors (but only once!) so that all dependencies from the root supervisor down become a subcomponent of the primary application. The application callback module is unused for an included application.
 
-Running dk_yaws as an included application is indicated by:
+Running dk_yaws as an included application is defined by:
 
   1. Adding {included_applications, [dk_yaws]} in the primary application's .app.src
   1. Calling dk_yaws_sup:start_link() from exactly one of the primary application's supervisors
