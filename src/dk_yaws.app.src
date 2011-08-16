@@ -1,7 +1,7 @@
 {application, dk_yaws,
  [
   {id,  "DK-yaws"},
-  {vsn, "0.0.2"},
+  {vsn, "0.0.3"},
   {description, "DK Embedded yaws webserver"},
   {modules, []},
   {registered, [dk_yaws_app, dk_yaws_sup, dk_yaws_server]},
