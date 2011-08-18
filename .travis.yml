@@ -5,6 +5,8 @@ otp_release:
    - R14B02
    - R14B01
 
+before_script: "sudo apt-get --yes --force-yes install libpam0g-dev"
+
 script: "make tests"
 
 notifications:
