@@ -5,6 +5,19 @@ Yaws is an erlang application that implements a sophisticated web server. It can
 
 This project uses rebar. It demonstrates how to build your own application and use it as an included application in another project using rebar.
 
+Included software
+=================
+
+This project is built with dependencies on other open source software projects.
+
+The following software is included in the deployed application bundle:
+
+  * yaws-1.90 (git://github.com/klacke/yaws.git)
+
+The following software is used to build, test or validate the application during development:
+
+  * meck (git://github.com/eproxus/meck.git)
+
 Running dk_yaws standalone
 ==========================
 

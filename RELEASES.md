@@ -2,9 +2,10 @@
 =====
 Release pending
 
+  * Turned on Continuous Integration using http://travis-ci.org/
+  * Added software dependencies to README.md
   * Added new BSD (simplified 2-clause) LICENSE
   * Added release history (RELEASES.md) and acknowledgements (CONTRIBUTORS.md)
-  * Turned on Continuous Integration using http://travis-ci.org/
   * Added rebar executable solely for Travis CI to work properly
 
 0.0.3
