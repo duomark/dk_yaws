@@ -1,9 +1,9 @@
 0.1.0
 =====
-Release pending
+Released 2011-08-18
 
   * Turned on Continuous Integration using http://travis-ci.org/
-  * Added software dependencies to README.md
+  * Added software dependencies and Travis-CI section to README.md
   * Added new BSD (simplified 2-clause) LICENSE
   * Added release history (RELEASES.md) and acknowledgements (CONTRIBUTORS.md)
   * Added rebar executable solely for Travis CI to work properly
