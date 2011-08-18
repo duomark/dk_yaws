@@ -1,8 +1,8 @@
 ## Name of the node
--name dk_yaws@127.0.0.1
+-name {{node_name}}
 
 ## Cookie for distributed erlang
--setcookie dk_yaws
+-setcookie {{node_cookie}}
 
 ## Heartbeat management; auto-restarts VM if it dies or becomes unresponsive
 ## (Disabled by default..use with caution!)
