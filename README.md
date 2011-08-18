@@ -5,6 +5,15 @@ Yaws is an erlang application that implements a sophisticated web server. It can
 
 This project uses rebar. It demonstrates how to build your own application and use it as an included application in another project using rebar.
 
+Travis CI
+=========
+
+[![Build Status](http://travis-ci.org/duomark/dk_yaws.png)](http://travis-ci.org/duomark/dk_yaws])
+
+This project is set up to use [Travis-CI](http://about.travis-ci.org/) for Continuous Integration. After a check in which modifies the code, Travis will build and run the unit tests to verify that the code still works. The status of the current build is shown in the above image badge.
+
+Integration with Travis is provided by the [.travis.yml file](https://raw.github.com/duomark/dk_yaws/master/.travis.yml). Note there is a special 'before script' installation of PAM required by Yaws or it cannot build on their worker nodes. The automated build is run on R14B01, R14B02 and R14B03.
+
 Included software
 =================
 
