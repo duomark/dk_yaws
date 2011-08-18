@@ -6,3 +6,4 @@ ebin/
 rel/dk_yaws
 erl_crash.dump
 */erl_crash.dump
+.eunit/
