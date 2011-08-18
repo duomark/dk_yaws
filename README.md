@@ -3,16 +3,16 @@ dk_yaws (DuoMark Yaws Application)
 
 Yaws is an erlang application that implements a sophisticated web server. It can be used standalone or as a server embedded in another application. dk_yaws provides a simple application that manages yaws, and it can serve as the basis for embedding yaws into another application.
 
-This project uses rebar. It demonstrates how to build your own application and use it as an included application in another project using rebar.
+dk_yaws is built using rebar. It demonstrates how to build your own application and use it as an included application in another project using rebar.
 
 Travis CI
 =========
 
 [![Build Status](http://travis-ci.org/duomark/dk_yaws.png)](http://travis-ci.org/duomark/dk_yaws])
 
-This project is set up to use [Travis-CI](http://about.travis-ci.org/) for Continuous Integration. After a check in which modifies the code, Travis will build and run the unit tests to verify that the code still works. The status of the current build is shown in the above image badge.
+[Travis-CI](http://about.travis-ci.org/) provides Continuous Integration. Travis automatically builds and runs the unit tests whenever the code is modified. The status of the current build is shown in the image badge directly above this paragraph.
 
-Integration with Travis is provided by the [.travis.yml file](https://raw.github.com/duomark/dk_yaws/master/.travis.yml). Note there is a special 'before script' installation of PAM required by Yaws or it cannot build on their worker nodes. The automated build is run on R14B01, R14B02 and R14B03.
+Integration with Travis is provided by the [.travis.yml file](https://raw.github.com/duomark/dk_yaws/master/.travis.yml). Note there is a special 'before script' installation of PAM required by Yaws or it cannot build on their worker nodes. This line is necessary in any project using Yaws and Travis-CI. The automated build is run on R14B01, R14B02 and R14B03.
 
 Included software
 =================
