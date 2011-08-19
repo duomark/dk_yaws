@@ -2,7 +2,7 @@
  [
   {id,  "DK-yaws"},
   {vsn, "0.1.1"},
-  {description, "DK Embedded yaws webserver"},
+  {description, "DuoMark embedded yaws webserver"},
   {modules, []},
   {registered, [dk_yaws_app, dk_yaws_sup, dk_yaws_server]},
   {applications, [kernel, stdlib, sasl, gs, appmon]},
