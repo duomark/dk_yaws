@@ -12,27 +12,25 @@
 -copyright("(c) 2011, DuoMark International, Inc.  All rights reserved").
 -author(jayn).
 
+%% External API
 -export([start_link/0, run/0]).
 
--define(APP_ID,            "dk_yaws").
--define(APP_PARAM_IP,      dk_yaws_ip).
--define(APP_PARAM_PORT,    dk_yaws_port).
--define(APP_PARAM_DOCROOT, dk_yaws_docroot).
-
--define(DEFAULT_IP,       "0.0.0.0").
--define(DEFAULT_IP_TUPLE, {0,0,0,0}).
--define(DEFAULT_PORT,     8888).
--define(DEFAULT_DOCROOT,  "/var/yaws/www").
+-include("dk_yaws_params.hrl").
 
 
-%%%------------------------------------------------------------------------------
-%% @doc
-%%   Spawn a new process to start yaws via run/0. To properly configure
-%%%------------------------------------------------------------------------------
+%%%==============================================================================
+%%% External API
+%%%==============================================================================
+
+-spec start_link() -> {ok, pid()}.
+-spec run() -> {ok, pid()}.
+
+
+%% @doc Spawn a new process to start yaws via run/0. To properly configure
 start_link() ->
     {ok, proc_lib:spawn_link(?MODULE, run, [])}.
 
-%%%------------------------------------------------------------------------------
+%%-------------------------------------------------------------------------------
 %% @doc
 %%   Use application environment parameters to determine the port for yaws
 %%   to listen on and the root of the document hierarchy on disk from which
@@ -45,9 +43,10 @@ start_link() ->
 %%
 %%   The run/0 function ends after successfully launching new yaws child
 %%   processes, relying on dk_yaws_sup to keep them running.
-%%%------------------------------------------------------------------------------
+%% @end
+%%-------------------------------------------------------------------------------
 run() ->
-    Docroot = get_app_env(?APP_PARAM_DOCROOT, ?DEFAULT_DOCROOT),
+    Docroot = dk_utils:get_app_env(?APP_PARAM_DOCROOT, ?DEFAULT_DOCROOT),
     GconfList = [{id, ?APP_ID}],
     SconfList = get_ip_and_port() ++ [{docroot, Docroot}],
     {ok, SCList, GC, ChildSpecs} =
@@ -56,34 +55,19 @@ run() ->
     yaws_api:setconf(GC, SCList),
     {ok, self()}.
 
+
+%%%==============================================================================
+%%% Internal functions
+%%%==============================================================================
+
+%% @private
+%% @doc Get the IP and Port from this application's configuration parameters.
 get_ip_and_port() ->
-    Ip = get_app_env(?APP_PARAM_IP, ?DEFAULT_IP),
+    Ip = dk_utils:get_app_env(?APP_PARAM_IP, ?DEFAULT_IP),
     IpParts = string:tokens(Ip, "."),
     IpTuple = case length(IpParts) of
                   4 -> list_to_tuple([list_to_integer(N) || N <- IpParts]);
                   _Improper -> ?DEFAULT_IP_TUPLE
               end,
-    Port = get_app_env(?APP_PARAM_PORT, ?DEFAULT_PORT),
+    Port = dk_utils:get_app_env(?APP_PARAM_PORT, ?DEFAULT_PORT),
     [{listen, IpTuple}, {port, Port}].
-
-
-%%%------------------------------------------------------------------------------
-%% @doc
-%%   Get config parameter for the running application.
-%%
-%%   Check the current application context, then the init
-%%   context, and finally return a default if neither has
-%%   a value.
-%% @end
-%%%------------------------------------------------------------------------------
--spec get_app_env(atom(), any()) -> any().
-
-get_app_env(Param, Default) ->
-    case application:get_env(Param) of
-        {ok, Val} -> Val;
-        undefined ->
-            case init:get_argument(Param) of
-                {ok, [[FirstVal | _OtherVals], _MoreVals]} -> FirstVal;
-                error -> Default
-            end
-    end.
