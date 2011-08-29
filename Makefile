@@ -3,10 +3,10 @@ all: deps compile
 deps: deps/yaws
 
 deps/yaws:
-	@rebar get-deps
+	@./rebar get-deps
 
 compile:
-	@rebar compile
+	@./rebar compile
 
 dialyze: all
 	dialyzer -Wrace_conditions ebin
@@ -19,10 +19,10 @@ gc:
 
 rel: all
 	@echo 'Generating dk_yaws release'
-	@(cd rel; rebar generate)
+	@(cd rel; ./rebar generate)
 
 clean: gc
-	@rebar clean
+	@./rebar clean
 
 relclean:
 	@rm -f rel/erl_crash.dump
