@@ -19,8 +19,7 @@
 %% Supervisor callbacks
 -export([init/1]).
 
-%% Helper macro for declaring children of supervisor
--define(CHILD(I, Type), {I, {I, start_link, []}, transient, 5000, Type, [I]}).
+-define(SERVER, ?MODULE).
 
 
 %%===============================================================================
@@ -32,7 +31,8 @@
 start_link() ->
     ssl:start(),
     inets:start(),
-    supervisor:start_link({local, ?MODULE}, ?MODULE, {}).
+    supervisor:start_link({local, ?SERVER}, ?MODULE, {}).
+
 
 %%===============================================================================
 %% Supervisor callbacks
@@ -40,6 +40,9 @@ start_link() ->
 
 -spec init(Args::{}) -> {ok, any()}.
 
+%% Helper macro for declaring children of supervisor
+-define(CHILD(I, Args), {I, {I, start_link, Args}, transient, 5000, worker, [I]}).
+
 init({}) ->
-    YawsServer = ?CHILD(dk_yaws_server, worker),
+    YawsServer = ?CHILD(dk_yaws_server, []),
     {ok, { {one_for_all, 5, 10}, [YawsServer]} }.
