@@ -19,7 +19,7 @@ gc:
 
 rel: all
 	@echo 'Generating dk_yaws release'
-	@(cd rel; ./rebar generate)
+	@(cd rel; ../rebar generate)
 
 clean: gc
 	@./rebar clean
