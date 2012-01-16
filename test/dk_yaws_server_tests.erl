@@ -25,14 +25,14 @@ params_test_() ->
 check_params() ->
     meck_default_params(),
     Params1 = ?TM:get_params(?PARAM_LIST),
-    ?assertMatch({0,0,0,0}, proplists:get_value(?APP_PARAM_IP, Params1)),
-    ?assertMatch(8888, proplists:get_value(?APP_PARAM_PORT, Params1)),
+    ?assertMatch({0,0,0,0}, proplists:get_value(?YAWS_PARAM_IP, Params1)),
+    ?assertMatch(8888, proplists:get_value(?YAWS_PARAM_PORT, Params1)),
     unmeck_params(),
     
     meck_string_params(),
     Params2 = ?TM:get_params(?PARAM_LIST),
-    ?assertMatch({127,0,0,1}, proplists:get_value(?APP_PARAM_IP, Params2)),
-    ?assertMatch(7777, proplists:get_value(?APP_PARAM_PORT, Params2)),
+    ?assertMatch({127,0,0,1}, proplists:get_value(?YAWS_PARAM_IP, Params2)),
+    ?assertMatch(7777, proplists:get_value(?YAWS_PARAM_PORT, Params2)),
     unmeck_params().
     
 

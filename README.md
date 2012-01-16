@@ -35,7 +35,7 @@ Download and install the source code, then perform the following at the command 
   1. make realclean all rel
   1. rel/dk_yaws/bin/dk_yaws console
 
-You will now have a webserver running and listening on port 8888 as specified in the [app.config file](https://raw.github.com/duomark/dk_yaws/master/rel/files/app.config) and [vars.config file](https://raw.github.com/duomark/dk_yaws/master/rel/files/vars.config) with dk_yaws as the primary application.
+You will now have a webserver running and listening on port 8000 as specified in the [app.config file](https://raw.github.com/duomark/dk_yaws/master/rel/files/app.config) and [vars.config file](https://raw.github.com/duomark/dk_yaws/master/rel/files/vars.config) with dk_yaws as the primary application.
 
 Embedding dk_yaws
 =================

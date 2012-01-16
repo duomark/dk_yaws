@@ -83,9 +83,10 @@ normalize_ip_and_port(Proplist) ->
 normalize_ip(Proplist) ->
     {IpPair, Rest} = proplists:split(Proplist, [?APP_PARAM_IP]),
     case IpPair of
-        [[{?APP_PARAM_IP, Ip}]] when is_tuple(Ip) -> Proplist;
+        [[{?APP_PARAM_IP, Ip}]] when is_tuple(Ip) ->
+            [{?YAWS_PARAM_IP, Ip} | Rest];
         [[{?APP_PARAM_IP, Ip}]] ->
-            [{?APP_PARAM_IP, convert_ip(Ip)} | Rest]
+            [{?YAWS_PARAM_IP, convert_ip(Ip)} | Rest]
     end.
     
 convert_ip(Ip) when is_list(Ip) ->            
@@ -98,9 +99,10 @@ convert_ip(Ip) when is_list(Ip) ->
 normalize_port(Proplist) ->
     {PortPair, Rest} = proplists:split(Proplist, [?APP_PARAM_PORT]),
     case PortPair of
-        [[{?APP_PARAM_PORT, Port}]] when is_integer(Port) -> Proplist;
+        [[{?APP_PARAM_PORT, Port}]] when is_integer(Port) ->
+            [{?YAWS_PARAM_PORT, Port} | Rest];
         [[{?APP_PARAM_PORT, Port}]] ->
-            [{?APP_PARAM_PORT, convert_port(Port)} | Rest]
+            [{?YAWS_PARAM_PORT, convert_port(Port)} | Rest]
     end.
 
 convert_port(Port) when is_list(Port) ->
