@@ -11,3 +11,6 @@
 -define(APP_PARAM_DOCROOT, dk_yaws_docroot).
 -define(DEFAULT_DOCROOT,   "/var/yaws/www").
 
+-define(PARAM_LIST, [{?APP_PARAM_IP,      ?DEFAULT_IP},
+                     {?APP_PARAM_PORT,    ?DEFAULT_PORT},
+                     {?APP_PARAM_DOCROOT, ?DEFAULT_DOCROOT}]).
