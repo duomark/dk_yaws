@@ -3,7 +3,6 @@ language: erlang
 otp_release:
    - R14B03
    - R14B02
-   - R14B01
 
 before_script: "sudo apt-get --yes --force-yes install libpam0g-dev"
 
