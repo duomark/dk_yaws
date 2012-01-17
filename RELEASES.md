@@ -2,6 +2,7 @@
 =====
 Release pending
 
+  * Removed R14B01 build from Travis-CI
   * Added unit tests for dk_yaws_server
   * Added 'make eunit' as an alias for 'make tests'
 
