@@ -35,8 +35,8 @@ realclean: clean relclean
 	@rm -f */erl_crash_dump
 
 
-tests: all
+test: all
 	ERL_LIBS=$(CURDIR):$(CURDIR)/deps ./rebar skip_deps=true eunit
 
 eunit:
-	make tests
+	make test
