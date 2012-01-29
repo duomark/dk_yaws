@@ -1,7 +1,14 @@
+0.2.0
+=====
+Planned
+
+  * Validate on R15B01
+
 0.1.1
 =====
-Release pending
+Released 2012-01-29
 
+  * Upgraded to YAWS 1.91 (1.92 fails in rebar)
   * Removed R14B01 build from Travis-CI
   * Added unit tests for dk_yaws_server
   * Added 'make eunit' as an alias for 'make tests'
