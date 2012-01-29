@@ -29,14 +29,14 @@ relclean:
 	@rm -rf rel/dk_yaws
 
 realclean: clean relclean
-	@rebar del-deps
+	@./rebar del-deps
 	@rm -rf deps/*
 	@rm -f erl_crash.dump
 	@rm -f */erl_crash_dump
 
 
 tests: all
-	ERL_LIBS=$(CURDIR):$(CURDIR)/deps rebar skip_deps=true eunit
+	ERL_LIBS=$(CURDIR):$(CURDIR)/deps ./rebar skip_deps=true eunit
 
 eunit:
 	make tests
