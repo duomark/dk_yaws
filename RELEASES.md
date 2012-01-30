@@ -6,9 +6,10 @@ Planned
 
 0.1.1
 =====
-Released 2012-01-29
+Released 2012-01-30
 
-  * Upgraded to YAWS 1.91 (1.92 fails in rebar)
+  * Upgraded to YAWS 1.92 (required a newer rebar)
+  * Upgraded rebar to 'rebar version: 2 date: 20110608_234142 vcs: git fbd2778'
   * Removed R14B01 build from Travis-CI
   * Added unit tests for dk_yaws_server
   * Added 'make eunit' as an alias for 'make tests'
