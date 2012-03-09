@@ -21,7 +21,7 @@ This project is built with dependencies on other open source software projects.
 
 The following software is included in the deployed application bundle:
 
-  * yaws-1.90 (git://github.com/klacke/yaws.git)
+  * yaws-1.92 (git://github.com/klacke/yaws.git)
 
 The following software is used to build, test or validate the application during development:
 
