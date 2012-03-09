@@ -30,7 +30,7 @@ get_app_env(Param, Default) ->
         {ok, Val} -> Val;
         undefined ->
             case init:get_argument(Param) of
-                {ok, [[FirstVal | _OtherVals], _MoreVals]} -> FirstVal;
+                {ok, [[FirstVal | _OtherVals] | _MoreVals]} -> FirstVal;
                 error -> Default
             end
     end.
