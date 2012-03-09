@@ -19,6 +19,10 @@
 %% Supervisor callbacks
 -export([init/1]).
 
+%% Hack because inets doesn't have a root supervisor start_link/0 call.
+%% Planning a patch to OTP to address this.
+-export([start_link/1]).
+
 -define(SERVER, ?MODULE).
 
 
@@ -27,22 +31,36 @@
 %%===============================================================================
 
 -spec start_link() -> {ok, pid()}.
+-spec start_link(inets) -> {ok, pid()}.
 
 start_link() ->
-    ssl:start(),
-    inets:start(),
     supervisor:start_link({local, ?SERVER}, ?MODULE, {}).
+
+start_link(inets) ->
+    supervisor:start_link({local, inets_sup}, inets_sup, []).
 
 
 %%===============================================================================
 %% Supervisor callbacks
 %%===============================================================================
 
--spec init(Args::{}) -> {ok, any()}.
+-spec init(Args::{}) -> {ok, {tuple(), list()}}.
+
 
 %% Helper macro for declaring children of supervisor
--define(CHILD(I, Args), {I, {I, start_link, Args}, transient, 5000, worker, [I]}).
+-define(SUPER(__Mod, __Args), {__Mod, {__Mod, start_link, __Args}, permanent, infinity, supervisor, [__Mod]}).
+-define(CHILD(__Mod, __Args), {__Mod, {__Mod, start_link, __Args}, transient, 5000, worker, [__Mod]}).
+
+%% Hack required by lack of inets_sup:start_link/0
+-define(SUPER(__Name, __Mod, __Args), {__Name, {__Mod, start_link, __Args}, permanent, infinity, supervisor, [__Name]}).
 
 init({}) ->
+    CryptoSup = ?SUPER(crypto_sup, []),
+    SslSup = ?SUPER(ssl_sup, []),
+    InetsSup = ?SUPER(inets_sup, dk_yaws_sup, [inets]),
     YawsServer = ?CHILD(dk_yaws_server, []),
-    {ok, { {one_for_all, 5, 10}, [YawsServer]} }.
+    {ok, { {one_for_one, 5, 10}, [
+                                  CryptoSup,
+                                  SslSup,
+                                  InetsSup,
+                                  YawsServer]} }.
